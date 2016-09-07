@@ -31,7 +31,6 @@ def district_margins(state_lines):
             districts[district] = x['GENERAL %'].rstrip('%').replace(',','.')
     return districts
 
-
 def all_states(lines):
     """
     Return all of the states (column "STATE") in list created from a

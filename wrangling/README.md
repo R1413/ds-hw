@@ -48,7 +48,7 @@ In the US, our legislature is made up of representatives of individual
 these districts are competitive, meaning that the winner of the
 election is not a "sure thing" based on the voters in the districts.
 However, for a variety of reasons, many of these districts are not
-very competitive.  We're going to look at the 2014 election and see
+very competitive.  We're going to look at the 2014 election for the 114th congress and see
 which districts are competitive.  This also gives us a chance to play
 around with some continuous data (well, sort of; we'll assume votes
 are continuous even though you can't have a fractional vote).
@@ -59,7 +59,7 @@ is uncontested, the margin should be "100", in that the percentage
 difference between the first place candidate and the second is 100.  
 
     $ python districts.py
-    $ head district_totals.csv
+    $ head district_margins.csv
     STATE,DISTRICT,MARGIN
     Arizona,2,0.07000000000000028
     California,7,0.7999999999999972
@@ -70,7 +70,7 @@ difference between the first place candidate and the second is 100.
     Washington,4,1.6200000000000045
     Texas,23,2.1000000000000014
     Iowa,1,2.280000000000001
-    $ tail district_totals.csv
+    $ tail district_margins.csv
     Georgia,3,100.0
     Georgia,14,100.0
     Florida,25,100
