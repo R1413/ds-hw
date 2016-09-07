@@ -13,7 +13,24 @@ def district_margins(state_lines):
     """
 
     # Complete this function
-    return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+#    return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+#    return dict((int(x['D']), 
+    districts = {}
+    completed = []
+    for x in state_lines:
+        try:
+            int(x['D'])
+            float(x['GENERAL %'].rstrip('%').replace(',','.'))
+        except:
+            continue
+        district = int(x['D'])
+        if district in districts.keys() and district not in completed:
+            districts[district] = float(districts[district])-float(x['GENERAL %'].rstrip('%').replace(',','.'))
+            completed.append(district)
+        elif district not in districts.keys():
+            districts[district] = x['GENERAL %'].rstrip('%').replace(',','.')
+    return districts
+
 
 def all_states(lines):
     """
@@ -23,7 +40,8 @@ def all_states(lines):
     """
 
     # Complete this function
-    return set(["Alabama"])
+#    return set(["Alabama"])
+    return set([x['STATE'] for x in lines])
 
 def all_state_rows(lines, state):
     """
@@ -34,8 +52,10 @@ def all_state_rows(lines, state):
     """
 
     # Complete/correct this function
-    for ii in lines[:10]:
-        yield ii
+    for ii in lines:
+        if (ii['STATE'] == state):
+            yield ii
+    
 
 if __name__ == "__main__":
     # You shouldn't need to modify this part of the code

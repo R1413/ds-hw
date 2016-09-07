@@ -10,7 +10,12 @@ def text_from_zipfile(zip_file):
     zip file.
     """
     # Modify this function
-    return ["nope"]
+    #return ["nope"]
+    for filename in ZipFile(zip_file).namelist():
+        with open(filename) as txtfile:
+            for line in txtfile:
+                yield str(line, 'utf-8', errors='ignore')
+    
 
 def words(text):
     """
@@ -19,7 +24,10 @@ def words(text):
     lower case.
     """
     # Modify this function
-    return text.lower().split()
+    for word in re.split("[^a-z]", text.lower()):
+        if len(word) >= 4:
+            yield word
+#    return text.lower().split()
 
 def accumulate_counts(words, total=Counter()):
     """
