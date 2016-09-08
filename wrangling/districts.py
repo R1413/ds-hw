@@ -14,22 +14,26 @@ def district_margins(state_lines):
 
     # Complete this function
 #    return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
-#    return dict((int(x['D']), 
     districts = {}
-    completed = []
+    margins = {}
     for x in state_lines:
         try:
-            int(x['D'])
+            int(x['D'][:2])
             float(x['GENERAL %'].rstrip('%').replace(',','.'))
         except:
             continue
-        district = int(x['D'])
-        if district in districts.keys() and district not in completed:
-            districts[district] = float(districts[district])-float(x['GENERAL %'].rstrip('%').replace(',','.'))
-            completed.append(district)
-        elif district not in districts.keys():
-            districts[district] = x['GENERAL %'].rstrip('%').replace(',','.')
-    return districts
+        if(x['D'].endswith('UNEXPIRED TERM')):
+            continue
+        if(int(x['D'][:2]) not in districts.keys()):
+            districts[int(x['D'][:2])] = [float(x['GENERAL %'].rstrip('%').replace(',','.'))]
+        else:
+            districts[int(x['D'][:2])] = districts[int(x['D'][:2])] + [float(x['GENERAL %'].rstrip('%').replace(',','.'))]
+
+    for (x,y) in districts.items():
+#        heapq.heapify(y)
+        topTwo = heapq.nlargest(2,y)
+        margins[x] = topTwo[0] - topTwo[1]
+    return margins
 
 def all_states(lines):
     """

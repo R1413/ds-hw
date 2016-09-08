@@ -11,11 +11,12 @@ def text_from_zipfile(zip_file):
     """
     # Modify this function
     #return ["nope"]
-    for filename in ZipFile(zip_file).namelist():
-        with open(filename) as txtfile:
-            for line in txtfile:
-                yield str(line, 'utf-8', errors='ignore')
-    
+    with ZipFile(zip_file) as zf:
+        for x in zf.namelist():
+            with zf.open(x) as currentFile:
+                for line in currentFile:
+#                    print(line)
+                    yield str(line, "utf-8", errors="ignore")
 
 def words(text):
     """
@@ -24,9 +25,11 @@ def words(text):
     lower case.
     """
     # Modify this function
+    '''
     for word in re.split("[^a-z]", text.lower()):
         if len(word) >= 4:
-            yield word
+            yield word'''
+    return re.findall(kWORDS, text.lower())
 #    return text.lower().split()
 
 def accumulate_counts(words, total=Counter()):
@@ -40,6 +43,8 @@ def accumulate_counts(words, total=Counter()):
     assert isinstance(total, Counter)
 
     # Modify this function    
+    for word in words:
+        total[word] += 1
     return total
 
 if __name__ == "__main__":
