@@ -57,7 +57,7 @@ To do this, you'll need to implement the following functions:
 
 WARNING: Writing a unit test for generation is tricky (without
 creating a testing stub for the random number generator), so make sure
-you are dillegent in making sure this works correctly.
+you are thorough in making sure this works correctly.
 
 Writeup (10 points)
 -----------------------
