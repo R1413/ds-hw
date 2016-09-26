@@ -60,6 +60,7 @@ class BigramLanguageModel:
         
         # Add your code here!
         # Bigram counts
+        self.bgcounts = Counter()
         self._vocab_final = False
 
     def train_seen(self, word):
@@ -70,7 +71,8 @@ class BigramLanguageModel:
         assert not self._vocab_final, \
             "Trying to add new words to finalized vocab"
 
-        # Add your code here!            
+        # Add your code here!
+        self._vocab.add(word)
 
     def generate(self, context):
         """
@@ -83,7 +85,16 @@ class BigramLanguageModel:
         # smoothing "+1" term while sampling.
 
         # Your code here
-        return "the"
+        #calculate the laplace of the context with each word and return the word with the highest laplace
+        word = ''
+        maxP = 0
+        for i in self._vocab:
+            lap = self.laplace(context,i)
+            #print("(%s, %s): %f" % (context,i,lap))
+            if(lap > maxP):
+                word = i
+        return word
+        #return "the"
             
     def sample(self, sample_size):
         """
@@ -145,8 +156,8 @@ class BigramLanguageModel:
         assert word in self._vocab, "%s not in vocab" % word
 
         # Add your code here
-        val = 0.0
-        return val
+        val = (self.bgcounts[(context,word)]+1)/(self.bgcounts[(context,word)] + sum(j for i,j in self.bgcounts.items() if i[0] == context))
+        return log(val)
 
     def add_train(self, sentence):
         """
@@ -156,9 +167,10 @@ class BigramLanguageModel:
         # You'll need to complete this function, but here's a line of code that
         # will hopefully get you started.
         for context, word in bigrams(list(self.tokenize_and_censor(sentence))):
-            None
+            #None
             # ---------------------------------------
             assert word in self._vocab, "%s not in vocab" % word
+            self.bgcounts.update({(context,word)})
 
     def log_likelihood(self, sentence):
         """

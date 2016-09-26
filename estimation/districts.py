@@ -33,7 +33,7 @@ def ml_mean(values):
     """
 
     # Your code here
-    return 0.5
+    return sum(values)/len(values)
 
 def ml_variance(values, mean):
     """
@@ -46,7 +46,7 @@ def ml_variance(values, mean):
     """
 
     # Your code here
-    return 1.0
+    return sum((values[i]-mean)**2 for i in range(0,len(values)))/len(values)
 
 def log_probability(value, mean, variance):
     """
@@ -55,7 +55,9 @@ def log_probability(value, mean, variance):
     """
 
     # Your code here
-    return 0.0
+    a = log(1/(2*kPI*variance)**(1/2))
+    b = -((value-mean)**2)/(2*variance)
+    return a+b
 
 def republican_share(lines, states):
     """
@@ -63,7 +65,16 @@ def republican_share(lines, states):
     districts in the states provided.
     """
     # Your code here
-    return {("Alaska", 0): 50.97}
+    districts = {}
+    for i in lines:
+        if(i['STATE'] in states and i['D'] and i['GENERAL %']):
+            if(i['PARTY'] == 'R'):
+                if(i['D'] == "01 - UNEXPIRED TERM"): continue
+                districts[(i['STATE'],int(i['D'][:2]))] = float(i['GENERAL %'].replace('%','').replace(',','.'))
+#            else:
+#                districts[(i['STATE'],i['D'])] = 0
+#    return {("Alaska", 0): 50.97}
+    return districts
 
 if __name__ == "__main__":
     # Don't modify this code
