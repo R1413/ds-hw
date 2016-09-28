@@ -201,7 +201,7 @@ if __name__ == "__main__":
     
         print("Trained language model for %s" % name)
 
-    with open("../data/2016-obama.txt") as infile:
+    with open("../data/2016-obama.txt", encoding='utf8') as infile:
         print("REP\t\tDEM\t\tSentence\n" + "=" * 80)
         for ii in infile:
             if len(ii) < 15: # Ignore short sentences
