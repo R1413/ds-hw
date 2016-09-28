@@ -46,7 +46,7 @@ def ml_variance(values, mean):
     """
 
     # Your code here
-    return sum((values[i]-mean)**2 for i in range(0,len(values)))/len(values)
+    return sum((value-mean)**2 for value in values)/len(values)
 
 def log_probability(value, mean, variance):
     """
@@ -69,7 +69,7 @@ def republican_share(lines, states):
     for i in lines:
         if(i['STATE'] in states and i['D'] and i['GENERAL %']):
             if(i['PARTY'] == 'R'):
-                if(i['D'] == "01 - UNEXPIRED TERM"): continue
+                if(i['D'] == "01 - UNEXPIRED TERM" or i['D'] == 'H'): continue
                 districts[(i['STATE'],int(i['D'][:2]))] = float(i['GENERAL %'].replace('%','').replace(',','.'))
 #            else:
 #                districts[(i['STATE'],i['D'])] = 0

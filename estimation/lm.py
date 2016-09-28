@@ -85,16 +85,14 @@ class BigramLanguageModel:
         # smoothing "+1" term while sampling.
 
         # Your code here
-        #calculate the laplace of the context with each word and return the word with the highest laplace
         word = ''
-        maxP = 0
+        lapMax = 0
         for i in self._vocab:
             lap = self.laplace(context,i)
-            #print("(%s, %s): %f" % (context,i,lap))
-            if(lap > maxP):
+            if(lap > lapMax):
                 word = i
+                lapMax = lap
         return word
-        #return "the"
             
     def sample(self, sample_size):
         """
@@ -156,8 +154,7 @@ class BigramLanguageModel:
         assert word in self._vocab, "%s not in vocab" % word
 
         # Add your code here
-        val = (self.bgcounts[(context,word)]+1)/(self.bgcounts[(context,word)] + sum(j for i,j in self.bgcounts.items() if i[0] == context))
-        return log(val)
+        return log((self.bgcounts[context,word]+1)/(sum(1 for i in self.bgcounts.items()) + sum(1 for i in self.bgcounts.items() if i[0][0] == context)))
 
     def add_train(self, sentence):
         """
@@ -177,8 +174,14 @@ class BigramLanguageModel:
         Compute the log likelihood of a sentence, divided by the number of
         tokens in the sentence.
         """
-        
-        return 0.0
+        sent = tokenize(sentence)
+        prob = 0
+        for context,word in bigrams(sent):
+            p = self.laplace(context,word)
+            print(p)
+            prob += p
+        print("Prob is %f" % prob)
+        return prob/len(sent)
 
 
 if __name__ == "__main__":
