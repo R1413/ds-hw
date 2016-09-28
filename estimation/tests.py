@@ -90,7 +90,6 @@ class TestLanguageModel(unittest.TestCase):
         for ii in range(100):
             sent = list(lm.sample(1))
             count[sent[1]] += 1
-        print(lm.bgcounts)    
         self.assertTrue(count["likely"] > 98)
 
                     
