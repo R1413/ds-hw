@@ -86,10 +86,9 @@ class BigramLanguageModel:
 
         # Your code here
         word = ''
-        lapMax = -99999
+        lapMax = kNEG_INF
         for i in self._vocab:
             lap = self.laplace(context,i)
-            print("%s, %s:\t%f" % (context,i,lap))
             if(lap > lapMax):
                 word = i
                 lapMax = lap
