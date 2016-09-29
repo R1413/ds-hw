@@ -72,9 +72,10 @@ class TestLanguageModel(unittest.TestCase):
         lm.finalize()
         lm.add_train("the nation")
         lm.add_train("nation")
+        lm.add_train("the")
 
-        self.assertAlmostEqual(lm.laplace("the", "nation"), log(2/5.), places=3)
-        self.assertAlmostEqual(lm.laplace(kSTART, kEND), log(1/6.), places=3)
+        self.assertAlmostEqual(lm.laplace("the", "nation"), log(2/6.), places=3)
+        self.assertAlmostEqual(lm.laplace(kSTART, kEND), log(1/7.), places=3)
 
         
     def test_generate(self):

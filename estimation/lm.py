@@ -86,9 +86,10 @@ class BigramLanguageModel:
 
         # Your code here
         word = ''
-        lapMax = 0
+        lapMax = -99999
         for i in self._vocab:
             lap = self.laplace(context,i)
+            print("%s, %s:\t%f" % (context,i,lap))
             if(lap > lapMax):
                 word = i
                 lapMax = lap
@@ -154,7 +155,7 @@ class BigramLanguageModel:
         assert word in self._vocab, "%s not in vocab" % word
 
         # Add your code here
-        return log((self.bgcounts[context,word]+1)/(sum(1 for i in self.bgcounts.items()) + sum(1 for i in self.bgcounts.items() if i[0][0] == context)))
+        return log((self.bgcounts[context,word]+1)/(len(self._vocab) + sum(j for i,j in self.bgcounts.items() if i[0] == context)))
 
     def add_train(self, sentence):
         """
@@ -174,13 +175,11 @@ class BigramLanguageModel:
         Compute the log likelihood of a sentence, divided by the number of
         tokens in the sentence.
         """
-        sent = tokenize(sentence)
+        sent = list(self.tokenize_and_censor(sentence))
         prob = 0
         for context,word in bigrams(sent):
             p = self.laplace(context,word)
-            print(p)
             prob += p
-        print("Prob is %f" % prob)
         return prob/len(sent)
 
 
