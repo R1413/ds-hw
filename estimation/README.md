@@ -60,6 +60,28 @@ WARNING: Writing a unit test for generation is tricky (without
 creating a testing stub for the random number generator), so make sure
 you are thorough in making sure this works correctly.
 
+The first few lines of your output file will look something like:
+
+	Trained language model for D
+	Done looking at R words, finalizing vocabulary
+	Trained language model for R
+	REP		DEM		Sentence
+	================================================================================
+	-5.555665	-5.901752	Mr. Speaker, Mr. Vice President, Members of Congress, my fellow Americans:
+	-6.474396	-6.601745	And for this final one, I’m going to try to make it a little shorter.
+	-5.409701	-5.095949	I've been there.
+	-6.723085	-6.627878	And I understand that because it’s an election season, expectations for what we will achieve this year are low.
+	-6.920930	-7.094266	But, Mr. Speaker, I appreciate the constructive approach that you and the other leaders took at the end of last year to pass a 		budget and make tax cuts permanent for working families.
+	-7.753715	-7.508743	So, who knows, we might surprise the cynics again.
+	-6.370917	-6.343508	But tonight, I want to go easy on the traditional list of proposals for the year ahead.
+	-6.160787	-6.262366	And I will keep pushing for progress on the work that I believe still needs to be done.
+	-7.437942	-7.276854	Fixing a broken immigration system.
+
+
+Note: Don't worry about getting the exact same log probabilities as here (they might vary depending on the log base you're using, and also Laplace smoothing parameter).
+
+
+
 Writeup (10 points)
 -----------------------
 
