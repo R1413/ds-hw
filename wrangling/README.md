@@ -9,6 +9,8 @@ This homework focuses on the first steps of getting data into a usable
 form to start asking very simple questions.  We'll start asking more
 complicated questions very soon!
 
+The data for this assignment are messy.  Part of this assignment is learning how to deal with this messiness.  You're not allowed to change the underlying data, but you may have to resort to hacks to resolve issues with the data.
+
 This homework should not be very difficult if you can program in
 Python.  If this homework is particularly challenging, you may not
 have enough of a programming background for the course and need to
